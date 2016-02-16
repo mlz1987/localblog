@@ -11,6 +11,7 @@ var flash = require('connect-flash');
 var users = require('./routes/users');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var multer = require('multer');
 
 
 
@@ -33,7 +34,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', routes);
 
-app.use('/users', users);
+//app.use('/users', users);
+
+app.use(multer({
+  dest:'./public/images',
+  rename:function(filename,filename){
+    return filename;
+  }
+}));
 
 
 app.use(session({
